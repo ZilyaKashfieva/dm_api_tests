@@ -9,11 +9,11 @@ Change registered user email
 def put_v1_account_email():
     url = "http://5.63.153.31:5051/v1/account/email"
 
-    payload = json.dumps({
+    payload = {
         "login": "<string>",
         "password": "<string>",
         "email": "<string>"
-    })
+    }
     headers = {
         'X-Dm-Auth-Token': '<string>',
         'X-Dm-Bb-Render-Mode': '<string>',

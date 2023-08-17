@@ -9,11 +9,11 @@ Register new user
 def post_v1_account():
     url = "http://5.63.153.31:5051/v1/account"
 
-    payload = ({
+    payload = {
         "login": "some5",
         "email": "some5@gmail.com",
         "password": "some61234"
-    })
+    }
     headers = {
         'X-Dm-Auth-Token': '<string>',
         'X-Dm-Bb-Render-Mode': '<string>',
