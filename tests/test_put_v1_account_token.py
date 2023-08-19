@@ -5,7 +5,7 @@ def test_put_v1_account_token():
 
 
     response = api.account.put_v1_account_token(
-        token= '3fa85f64-5717-4562-b3fc-2c963f66afa6'
+        token= '23ed557f-a65d-40d8-aad2-453a3e772379'
 
     )
     print(response)
