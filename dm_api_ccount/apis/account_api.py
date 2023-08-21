@@ -14,8 +14,7 @@ class AccountApi:
         if headers:
             self.session.headers.update(headers)
 
-
-    def post_v1_account(self, json: registration_model,**kwargs) -> Response:
+    def post_v1_account(self, json: registration_model, **kwargs) -> Response:
         """
         :param json registration_model
         Register new user
@@ -30,7 +29,7 @@ class AccountApi:
         )
         return response
 
-    def post_v1_account_password(self, json: reset_password_model,**kwargs) -> Response:
+    def post_v1_account_password(self, json: reset_password_model, **kwargs) -> Response:
         """
         :param json reset_password_model
         Reset registered user password
@@ -45,7 +44,7 @@ class AccountApi:
 
         return response
 
-    def get_v1_account(self,**kwargs):
+    def get_v1_account(self, **kwargs):
         """
         Get current user
         :return
@@ -59,7 +58,7 @@ class AccountApi:
 
         return response
 
-    def put_v1_account_email(self, json: change_email_model,**kwargs) -> Response:
+    def put_v1_account_email(self, json: change_email_model, **kwargs) -> Response:
         """
         :param json change_email_model
         Change registered user email
@@ -74,7 +73,7 @@ class AccountApi:
 
         return response
 
-    def put_v1_account_password(self, json: change_account_password,**kwargs) -> Response:
+    def put_v1_account_password(self, json: change_account_password, **kwargs) -> Response:
         """
         :param json change_account_password
         Change registered user password
@@ -89,7 +88,7 @@ class AccountApi:
 
         return response
 
-    def put_v1_account_token(self, token: str,**kwargs) -> Response:
+    def put_v1_account_token(self, token: str, **kwargs) -> Response:
         """
         :param token:
         Activate registered user

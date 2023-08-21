@@ -17,7 +17,3 @@ def test_put_v1_account_email():
         json=json
     )
     print(response)
-
-
-
-

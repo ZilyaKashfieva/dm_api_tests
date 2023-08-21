@@ -3,4 +3,3 @@ registration_model = {
     "email": "some5@gmail.com",
     "password": "some61234"
 }
-
