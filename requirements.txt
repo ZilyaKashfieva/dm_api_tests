@@ -1,2 +1,4 @@
-request
+requests
 pytest
+structlog
+curlify

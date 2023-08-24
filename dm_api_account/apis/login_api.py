@@ -1,4 +1,3 @@
-import requests
 from requests import Response
 from ..models.login_credentials_model import login_credentials_model
 from requests import session
