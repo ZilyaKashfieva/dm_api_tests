@@ -50,11 +50,11 @@ class Restclient:
         print(curl)
         log.msg(
             event='response',
-            status=Response.status_code,
-            headers=Response.headers,
+            status=response.status_code,
+            headers=response.headers,
             json=self._get_json(response),
-            text=Response.text,
-            content=Response.content,
+            text=response.text,
+            content=response.content,
             curl=curl
         )
         return response
