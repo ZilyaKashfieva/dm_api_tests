@@ -21,8 +21,8 @@ class Roles(Enum):
 class User(BaseModel):
     login: StrictStr
     roles: List[Roles]
-    medium_picture_url: Optional[StrictStr] = Field(alias="mediumPictureUrl",default=None)
-    small_picture_url: Optional[StrictStr] = Field(alias="smallPictureUrl",default=None)
+    medium_picture_url: Optional[StrictStr] = Field(alias="mediumPictureUrl", default=None)
+    small_picture_url: Optional[StrictStr] = Field(alias="smallPictureUrl", default=None)
     status: Optional[StrictStr] = None
     rating: Rating
     online: Optional[condate] = None
