@@ -1,5 +1,9 @@
-registration_model = {
-    "login": "some5",
-    "email": "some5@gmail.com",
-    "password": "some61234"
-}
+from pydantic import BaseModel, StrictStr
+
+class RegistrationModel(BaseModel):
+    login: StrictStr
+    email: StrictStr
+    password: StrictStr
+
+
+
