@@ -1,6 +1,8 @@
-change_account_password = {
-    "login": "string",
-    "token": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-    "oldPassword": "string",
-    "newPassword": "string"
-}
+from pydantic import BaseModel, StrictStr
+
+
+class ChangeAccountPassword(BaseModel):
+    login: StrictStr
+    token: StrictStr
+    oldPassword: StrictStr
+    newPassword: StrictStr
