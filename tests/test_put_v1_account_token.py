@@ -13,10 +13,10 @@ structlog.configure(
 
 
 def test_put_v1_account_token():
-    mailhog = MailhogApi(host='http://5.63.153.31:5025/api')
+    mailhog = MailhogApi(host='http://5.63.153.31:5025')
     api = DmApiAccount(host='http://5.63.153.31:5051')
 
-    json = RegistrationModel(login="some403", email="some403@gmail.com", password="some61234")
+    json = RegistrationModel(login="some406", email="some406@gmail.com", password="some61234")
     response = api.account.post_v1_account(json=json)
     assert response.status_code == 201, f'Статус код ответа должен быть равен 201, но он равен {response.status_code}'
     token = mailhog.get_token_from_last_email()

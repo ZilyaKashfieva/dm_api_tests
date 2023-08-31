@@ -14,15 +14,15 @@ structlog.configure(
 
 
 def test_put_v1_account_email():
-    mailhog = MailhogApi(host='http://5.63.153.31:5025/api')
+    mailhog = MailhogApi(host='http://5.63.153.31:5025')
     api = DmApiAccount(host='http://5.63.153.31:5051')
 
-    json = RegistrationModel(login="some304", email="some304@gmail.com", password="some61234")
+    json = RegistrationModel(login="some305", email="some305@gmail.com", password="some61234")
     response = api.account.post_v1_account(json=json)
     assert response.status_code == 201, f'Статус код ответа должен быть равен 201, но он равен {response.status_code}'
     token = mailhog.get_token_from_last_email()
     response = api.account.put_v1_account_token(token=token)
     assert response.status_code == 200, f'Статус код ответа должен быть равен 200, но он равен {response.status_code}'
-    json = ChangeEmailModel(login="some304", email="some304@gmail.com", password="some61234")
+    json = ChangeEmailModel(login="some305", email="some305@gmail.com", password="some61234")
     response = api.account.put_v1_account_email(json=json)
     assert response.status_code == 200, f'Статус код ответа должен быть равен 200, но он равен {response.status_code}'

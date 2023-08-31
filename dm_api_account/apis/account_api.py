@@ -5,6 +5,7 @@ from ..models.change_email_model import ChangeEmailModel
 from ..models.registration_model import RegistrationModel
 from ..models.reset_password_model import ResetPasswordModel
 from dm_api_account.models.user_envelope_model import UserEnvelopeModel
+from ..models.user_details_envelope import UserDetailsEnvelope
 
 
 class AccountApi:
@@ -55,7 +56,7 @@ class AccountApi:
             **kwargs
 
         )
-
+        UserDetailsEnvelope(**response.json())
         return response
 
     def put_v1_account_email(self, json: ChangeEmailModel, **kwargs) -> Response:

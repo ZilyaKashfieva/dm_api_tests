@@ -5,7 +5,7 @@ from restclient.restclient import Restclient
 
 
 class MailhogApi:
-    def __init__(self, host='http://5.63.153.31:5025/api'):
+    def __init__(self, host='http://5.63.153.31:5025'):
         self.host = host
         self.client = Restclient(host=host)
 
@@ -16,7 +16,7 @@ class MailhogApi:
         :return:
         """
         response = self.client.get(
-            path=f"/v2/messages",
+            path=f"/api/v2/messages",
             params={
                 'limit': limit
             }
@@ -35,3 +35,5 @@ class MailhogApi:
         token_url = json.loads(email['items'][0]['Content']['Body'])['ConfirmationLinkUrl']
         token = token_url.split('/')[-1]
         return token
+
+
