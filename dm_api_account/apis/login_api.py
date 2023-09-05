@@ -1,7 +1,7 @@
 from requests import Response
 from restclient.restclient import Restclient
-from ..models.login_credentials_model import LoginCredentialsModel
-from dm_api_account.models.user_envelope_model import UserEnvelopeModel
+from dm_api_account.models import *
+from dm_api_account.utilities import validate_request_json, validate_status_code
 
 
 class LoginApi:
@@ -11,8 +11,13 @@ class LoginApi:
         if headers:
             self.client.session.headers.update(headers)
 
-    def post_v1_account_login(self, json: LoginCredentialsModel, **kwargs) -> Response:
+    def post_v1_account_login(self,
+                              json: LoginCredentials,
+                              status_code: int = 200,
+                              **kwargs) -> Response | UserEnvelope:
         """
+
+        :param status_code:
         :param json login_credentials_model
         Authenticate via credentials
         :return
@@ -20,13 +25,16 @@ class LoginApi:
 
         response = self.client.post(
             path=f"/v1/account/login",
-            json=json.model_dump(by_alias=True, exclude_none=True),
+            json=validate_request_json(json),
             **kwargs
         )
-        #UserEnvelopeModel(**response.json())
+        validate_status_code(response, status_code)
+        if response.status_code == 200:
+            return UserEnvelope(**response.json())
+
         return response
 
-    def delete_v1_account_login_all(self, **kwargs):
+    def delete_v1_account_login_all(self, status_code: int, **kwargs):
         """
         Logout from every device
         :return
@@ -37,10 +45,10 @@ class LoginApi:
             **kwargs
 
         )
-
+        validate_status_code(response, status_code)
         return response
 
-    def delete_v1_account_login(self, **kwargs):
+    def delete_v1_account_login(self, status_code: int, **kwargs):
         """
         Logout as current user
         :return
@@ -50,5 +58,5 @@ class LoginApi:
             path=f"/v1/account/login",
             **kwargs
         )
-
+        validate_status_code(response, status_code)
         return response

@@ -1,5 +1,3 @@
-import requests
-
 from services.dm_api_account import DmApiAccount
 
 
