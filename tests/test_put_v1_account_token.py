@@ -17,19 +17,16 @@ structlog.configure(
 def test_put_v1_account_token():
     api = DmApiAccount(host='http://5.63.153.31:5051')
     mailhog = MailhogApi(host='http://5.63.153.31:5025')
-    response = api.account.put_v1_account_token(token='7fd5d239-7e29-4c6a-be4d-44943596796b')
+    json = Registration(login="some014", email="some014@gmail.com", password="some61234")
+    response = api.account.post_v1_account(json=json)
+    assert response.status_code == 201, f'Статус код ответа должен быть равен 201, но он равен {response.status_code}'
+    token = mailhog.get_token_from_last_email()
+    response = api.account.put_v1_account_token(token=token)
     assert_that(response.resource, has_properties(
         {
-            "login": "some012",
+            "login": "some014",
             "roles": [UserRole.guest, UserRole.player],
             "rating": Rating(enabled=True, quality=0, quantity=0)
 
         }
     ))
-
-    # json = Registration(login="some406", email="some406@gmail.com", password="some61234")
-    # response = api.account.post_v1_account(json=json)
-    # assert response.status_code == 201, f'Статус код ответа должен быть равен 201, но он равен {response.status_code}'
-    # token = mailhog.get_token_from_last_email()
-    # response = api.account.put_v1_account_token(token=token)
-    # assert response.status_code == 200, f'Статус код ответа должен быть равен 200, но он равен {response.status_code}'
