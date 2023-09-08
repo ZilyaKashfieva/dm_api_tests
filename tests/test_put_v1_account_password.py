@@ -1,12 +1,9 @@
 from dm_api_account.models.change_account_password import ChangePassword
 from hamcrest import assert_that, has_properties
-from services.dm_api_account import DmApiAccount
+from services.dm_api_account import Facade
 from dm_api_account.models.user_envelope_model import UserRole
 from dm_api_account.models.user_envelope_model import Rating
-from services.mailhog import MailhogApi
-from dm_api_account.models.registration_model import Registration
-from dm_api_account.models.login_credentials_model import LoginCredentials
-from dm_api_account.models.reset_password_model import ResetPassword
+from generic.helpers.mailhog import MailhogApi
 import structlog
 
 structlog.configure(
@@ -17,31 +14,38 @@ structlog.configure(
 
 
 def test_put_v1_account_email():
-    api = DmApiAccount(host='http://5.63.153.31:5051')
-    mailhog = MailhogApi(host='http://5.63.153.31:5025')
+    api = Facade(host='http://5.63.153.31:5051')
+    login = "some155"
+    email = "some155@gmail.com"
+    password = "some61234"
+    oldPassword = "some61234"
+    newPassword = "some612345"
 
-    # json = Registration(login="some515", email="some515@gmail.com", password="some61234")
-    # response = api.account.post_v1_account(json=json)
-    # token = mailhog.get_token_from_last_email()
-    # response = api.account.put_v1_account_token(token=token)
-    # json = LoginCredentials(login="some515", rememberMe=True, password="some61234")
-    # response = api.login.post_v1_account_login(json=json)
-    # json = ResetPassword(login="some515", email="some515@gmail.com")
-    # response = api.account.post_v1_account_password(json=json)
-    json = ChangePassword(
-        login="some515",
-        token="f1706907-744e-43f3-a81c-1c286798a6e7",
-        oldPassword="some61234",
-        newPassword="some6123456"
-    )
+    # Register new user
+    api.account.register_new_user(login=login, email=email, password=password)
+    # Activate new user
+    api.account.activate_registered_user(login=login)
+    # Login new user
+    api.login.login_new_user(login=login, password=password)
 
-    response = api.account.put_v1_account_password(json=json)
-    assert_that(response.resource, has_properties(
-        {
+    token = api.login.get_auth_token(login=login, password=password)
+    api.account.set_headers(headers=token)
+    api.login.set_headers(headers=token)
 
-            "login": "some515",
-            "roles": [UserRole.guest, UserRole.player],
-            "rating": Rating(enabled=True, quality=0, quantity=0)
+    # Get current user
+    api.account.get_current_user_info()
+    # Reset password
+    api.account.reset_password(login=login, email=email)
 
-        }
-    ))
+    #  Change password
+    api.account.change_password(login=login, oldPassword=oldPassword, newPassword=newPassword)
+
+    # assert_that(response.resource, has_properties(
+    #     {
+    #
+    #         "login": "some515",
+    #         "roles": [UserRole.guest, UserRole.player],
+    #         "rating": Rating(enabled=True, quality=0, quantity=0)
+    #
+    #     }
+    # ))

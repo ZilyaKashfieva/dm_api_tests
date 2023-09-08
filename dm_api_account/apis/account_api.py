@@ -6,6 +6,7 @@ from dm_api_account.models import *
 from dm_api_account.utilities import validate_request_json, validate_status_code
 
 
+
 class AccountApi:
     def __init__(self, host, headers=None):
         self.host = host
@@ -20,19 +21,16 @@ class AccountApi:
         Register new user
         :return
         """
-
         response = self.client.post(
             path=f"/v1/account",
             json=validate_request_json(json),
             **kwargs
-
         )
         validate_status_code(response, status_code)
 
         return response
 
-    def post_v1_account_password(self, json: ResetPassword, status_code: int = 200,
-                                 **kwargs) -> UserEnvelope | Response:
+    def post_v1_account_password(self, json: ResetPassword, status_code: int = 200) ->  Response:
         """
 
         :param status_code:
@@ -44,7 +42,6 @@ class AccountApi:
         response = self.client.post(
             path=f"/v1/account/password",
             json=validate_request_json(json),
-            **kwargs
         )
         validate_status_code(response, status_code)
         if response.status_code == 200:
@@ -64,7 +61,7 @@ class AccountApi:
         )
         validate_status_code(response, status_code)
         if response.status_code == 200:
-            return UserDetailsEnvelope(**response.json())
+            UserDetailsEnvelope(**response.json())
         return response
 
     def put_v1_account_email(self, json: ChangeEmail, status_code: int = 200, **kwargs) -> UserEnvelope | Response:
@@ -88,7 +85,7 @@ class AccountApi:
     def put_v1_account_password(self,
                                 json: ChangePassword,
                                 status_code: int = 200,
-                                **kwargs) -> UserEnvelope | Response:
+                                **kwargs) ->  Response:
         """
         :param status_code:
         :param json change_account_password
@@ -101,9 +98,9 @@ class AccountApi:
             json=validate_request_json(json),
             **kwargs
         )
-        validate_status_code(response, status_code )
+        validate_status_code(response, status_code)
         if response.status_code == 200:
-            return UserEnvelope(**response.json())
+            UserEnvelope(**response.json())
         return response
 
     def put_v1_account_token(self,
