@@ -5,19 +5,19 @@ from requests import Response
 from restclient.restclient import Restclient
 
 
-def decorator(fn):
-    def wrapper(*args, **kwargs):
-        for i in range(5):
-            response = fn(*args, **kwargs)
-            email = response.json()['items']
-            if len(email) < 5:
-                print(f'attempt {i}')
-                time.sleep(1)
-                continue
-            else:
-                return response
-
-    return wrapper
+# def decorator(fn):
+#     def wrapper(*args, **kwargs):
+#         for i in range(5):
+#             response = fn(*args, **kwargs)
+#             email = response.json()['items']
+#             if len(email) < 5:
+#                 print(f'attempt {i}')
+#                 time.sleep(1)
+#                 continue
+#             else:
+#                 return response
+#
+#     return wrapper
 
 
 class MailhogApi:
@@ -29,7 +29,7 @@ class MailhogApi:
         self.host = host
         self.client = Restclient(host=host)
 
-    @decorator
+    # @decorator
     def get_api_v2_messages(self, limit: int = 50) -> Response:
         """
         Get messages by limit

@@ -13,10 +13,10 @@ structlog.configure(
 )
 
 
-def test_put_v1_account_email():
+def test_put_v1_account_password():
     api = Facade(host='http://5.63.153.31:5051')
-    login = "some155"
-    email = "some155@gmail.com"
+    login = "some171"
+    email = "some171@gmail.com"
     password = "some61234"
     oldPassword = "some61234"
     newPassword = "some612345"
@@ -38,14 +38,15 @@ def test_put_v1_account_email():
     api.account.reset_password(login=login, email=email)
 
     #  Change password
-    api.account.change_password(login=login, oldPassword=oldPassword, newPassword=newPassword)
+    response = api.account.change_password(login=login, oldPassword=oldPassword, newPassword=newPassword)
 
-    # assert_that(response.resource, has_properties(
-    #     {
-    #
-    #         "login": "some515",
-    #         "roles": [UserRole.guest, UserRole.player],
-    #         "rating": Rating(enabled=True, quality=0, quantity=0)
-    #
-    #     }
-    # ))
+    assert_that(response.resource, has_properties(
+        {
+
+            "login": "some171",
+            "roles": [UserRole.guest, UserRole.player],
+            "rating": Rating(enabled=True, quality=0, quantity=0)
+
+        }
+    ))
+    #done

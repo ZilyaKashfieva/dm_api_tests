@@ -1,4 +1,6 @@
 from requests import Response
+
+from dm_api_account.models import UserEnvelope
 from restclient.restclient import Restclient
 from dm_api_account.models import *
 from dm_api_account.utilities import validate_request_json, validate_status_code
@@ -13,7 +15,7 @@ class LoginApi:
 
     def post_v1_account_login(self,
                               json: LoginCredentials,
-                              status_code: int = 200,
+                              status_code: int = 200
                               ) -> Response:
         """
         Authenticate via credentials
@@ -24,8 +26,8 @@ class LoginApi:
 
         response = self.client.post(
             path=f"/v1/account/login",
-            json=validate_request_json(json),
-         )
+            json=validate_request_json(json)
+        )
         validate_status_code(response, status_code)
         if response.status_code == 200:
             UserEnvelope(**response.json())
@@ -59,5 +61,3 @@ class LoginApi:
         )
         validate_status_code(response, status_code)
         return response
-
-

@@ -17,8 +17,8 @@ structlog.configure(
 
 def test_post_v1_account_password():
     api = Facade(host='http://5.63.153.31:5051')
-    login = "some150"
-    email = "some150@gmail.com"
+    login = "some1509"
+    email = "some1509@gmail.com"
     password = "some61234"
 
     # Register new user
@@ -35,16 +35,15 @@ def test_post_v1_account_password():
     # Get current user
     api.account.get_current_user_info()
     # Reset password
-    api.account.reset_password(login=login, email=email)
+    response = api.account.reset_password(login=login, email=email)
 
-    # response = api.account_api.post_v1_account_password(json=json)
-    #
-    # assert_that(response.resource, has_properties(
-    #     {
-    #
-    #         "login": "some314",
-    #         "roles": [UserRole.guest, UserRole.player],
-    #         "rating": Rating(enabled=True, quality=0, quantity=0)
-    #
-    #     }
-    # ))
+    assert_that(response.resource, has_properties(
+        {
+
+            "login": "some1509",
+            "roles": [UserRole.guest, UserRole.player],
+            "rating": Rating(enabled=True, quality=0, quantity=0)
+
+        }
+    ))
+    #done
